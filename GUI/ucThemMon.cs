@@ -5,13 +5,13 @@ using System.IO;
 using System.Windows.Forms;
 
 namespace GUI
-{   
+{
 
     public partial class ucThemMon : UserControl
     {
         private string connectionString = "Data Source=DESKTOP-LDAF2V1\\SQLEXPRESS;Initial Catalog=QLCF;Integrated Security=True;";
 
-       
+
         // Thêm các thuộc tính mới
         public bool IsEdit { get; set; }
         public string SelectedTenMon { get; set; }
@@ -22,22 +22,22 @@ namespace GUI
             //check giá trị bool isEdit
             IsEdit = isEdit;
             SelectedTenMon = tenMon;
-            //check messagebox isEdit
-            MessageBox.Show(IsEdit.ToString());
-
+            pictureHA.BringToFront();
             // Kiểm tra nếu đang ở chế độ chỉnh sửa
             if (IsEdit)
             {
                 // check is edit
                 LoadDataForEdit();
+                // ô mã món không cho phép chỉnh sửa
+                txtMaMon.Enabled = false;
             }
-            
-        
+
+
         }
         public ucThemMon()
         {
             InitializeComponent();
-            
+
 
         }
         private void LoadDataForEdit()
@@ -61,8 +61,6 @@ namespace GUI
                                 txtMaMon.Text = reader["MaMon"].ToString();
                                 txtTenMon.Text = SelectedTenMon;
                                 txtGiaTien.Text = reader["GiaTien"].ToString();
-                                //check mesagebox all txt 
-                                    MessageBox.Show(txtMaMon.Text + txtTenMon.Text + txtGiaTien.Text);
 
                                 // Hiển thị hình ảnh
                                 if (reader["HinhAnh"] != DBNull.Value)
@@ -130,15 +128,19 @@ namespace GUI
                         }
                     }
 
-                    // Thực hiện truy vấn để cập nhật món vào cơ sở dữ liệu
-                    string query = "UPDATE Menu SET MaMon = @MaMon, GiaTien = @GiaTien, HinhAnh = @HinhAnh WHERE TenMon = @TenMon";
+                    // Thực hiện truy vấn để cập nhật món vào cơ sở dữ liệu dựa vào khóa chính mã món và các thông tin mới được thay đổi: tên món, giá tiền, hình ảnh
+                    string query = "UPDATE Menu SET TenMon = @TenMon, GiaTien = @GiaTien, HinhAnh = @HinhAnh WHERE MaMon = @MaMon";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@TenMon", SelectedTenMon);
-                        command.Parameters.AddWithValue("@MaMon", txtMaMon.Text);
+                        command.Parameters.AddWithValue("@TenMon", txtTenMon.Text);
                         command.Parameters.AddWithValue("@GiaTien", decimal.Parse(txtGiaTien.Text));
                         command.Parameters.AddWithValue("@HinhAnh", (object)imageData ?? DBNull.Value);
-
+                        command.Parameters.AddWithValue("@MaMon", txtMaMon.Text);
+                        // nếu không cập nhật ảnh mới vào thì vẫn giữ nguyên ảnh cũ
+                        if (imageData == null)
+                        {
+                            command.CommandText = "UPDATE Menu SET TenMon = @TenMon, GiaTien = @GiaTien WHERE MaMon = @MaMon";
+                        }
                         int rowsAffected = command.ExecuteNonQuery();
 
                         if (rowsAffected > 0)
@@ -152,6 +154,8 @@ namespace GUI
                             MessageBox.Show("Cập nhật món không thành công. Vui lòng thử lại!");
                         }
                     }
+
+
                 }
             }
             catch (Exception ex)
@@ -237,10 +241,12 @@ namespace GUI
                 return Image.FromStream(ms);
             }
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnHuy_Click(object sender, EventArgs e)
         {
             // Ẩn UserControl
             this.Visible = false;
         }
+
+
     }
 }

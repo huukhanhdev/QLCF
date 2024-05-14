@@ -1,6 +1,4 @@
 ﻿using DTO;
-using System;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace DAL
@@ -66,7 +64,7 @@ namespace DAL
             return hoTen;
         }
         //đổi mật khẩu với tham số là tendangnhap, matkhaumoi
-            public static bool DoiMatKhau(string tenDangNhap, string matKhauMoi)
+        public static bool DoiMatKhau(string tenDangNhap, string matKhauMoi)
         {
             // Triển khai logic để cập nhật mật khẩu mới vào cơ sở dữ liệu
             string query = "UPDATE TaiKhoan SET MatKhau = @MatKhauMoi WHERE TenDangNhap = @TenDangNhap";
@@ -82,7 +80,7 @@ namespace DAL
                 return rowsAffected > 0;
             }
         }
-     
+
         public static bool CheckMatKhau(TaiKhoan taikhoan)
         {
             SqlConnection conn = SqlConnectionData.Connect();

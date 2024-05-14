@@ -1,9 +1,8 @@
-﻿using Krypton.Toolkit;
-using System;
+﻿using System;
 using System.Data.SqlClient;
-using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace GUI
 {
@@ -130,23 +129,69 @@ namespace GUI
         }
 
         private void btnSua_Click(object sender, EventArgs e)
-        {   // kiểm tra xem có đang select item nào không, nếu có mới
+        {   // kiểm tra xem có đang select item nào không, nếu có mới hiển thị ucThemMon
+            if (listView1.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn một món để chỉnh sửa");
+                return;
+            }
             string selectItem = listView1.SelectedItems[0].Text;
-            
+
             ucThemMonInstance = new ucThemMon(true, selectItem);
 
             // Chuyển sang chế độ chỉnh sửa và truyền tên món được chọn
-               
 
-                ucThemMonInstance.Dock = DockStyle.Fill;
-                 Controls.Add(ucThemMonInstance);
-            
+
+            ucThemMonInstance.Dock = DockStyle.Fill;
+            Controls.Add(ucThemMonInstance);
+
 
             // Hiển thị ucThemMon
             ucThemMonInstance.Visible = true;
             ucThemMonInstance.BringToFront();
         }
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn một món để xóa");
+                return;
+            }
+            string selectItem = listView1.SelectedItems[0].Text;
+            string connectionString = "Data Source=DESKTOP-LDAF2V1\\SQLEXPRESS;Initial Catalog=QLCF;Integrated Security=True;";
+            string query = "DELETE FROM Menu WHERE TenMon = @TenMon";
 
-        
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@TenMon", selectItem);
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Xóa món thành công!");
+                            // Xóa item khỏi ListView
+                            listView1.Items.Remove(listView1.SelectedItems[0]);
+                            // ẩn panel details
+                            panelDetails.Visible = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Xóa món không thành công. Vui lòng thử lại!");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi xóa món: " + ex.Message);
+            }
+        }
+
+
     }
 }

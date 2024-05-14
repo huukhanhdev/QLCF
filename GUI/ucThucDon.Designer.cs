@@ -39,6 +39,7 @@
             this.btnThemMon = new Krypton.Toolkit.KryptonButton();
             this.btnSua = new Krypton.Toolkit.KryptonButton();
             this.groupBoxThongTin = new Krypton.Toolkit.KryptonGroupBox();
+            this.btnXoa = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelDetails)).BeginInit();
             this.panelDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHA)).BeginInit();
@@ -66,8 +67,8 @@
             this.kryptonLabel4.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
             this.kryptonLabel4.Location = new System.Drawing.Point(29, 177);
             this.kryptonLabel4.Name = "kryptonLabel4";
-            this.kryptonLabel4.Size = new System.Drawing.Size(172, 27);
-            this.kryptonLabel4.StateCommon.ShortText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonLabel4.Size = new System.Drawing.Size(184, 27);
+            this.kryptonLabel4.StateCommon.ShortText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonLabel4.TabIndex = 7;
             this.kryptonLabel4.Values.Text = "Hình ảnh minh họa";
             // 
@@ -75,7 +76,7 @@
             // 
             this.pictureBoxHA.Location = new System.Drawing.Point(29, 223);
             this.pictureBoxHA.Name = "pictureBoxHA";
-            this.pictureBoxHA.Size = new System.Drawing.Size(585, 201);
+            this.pictureBoxHA.Size = new System.Drawing.Size(585, 267);
             this.pictureBoxHA.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxHA.TabIndex = 3;
             this.pictureBoxHA.TabStop = false;
@@ -85,8 +86,8 @@
             this.labelGiaTien.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
             this.labelGiaTien.Location = new System.Drawing.Point(52, 121);
             this.labelGiaTien.Name = "labelGiaTien";
-            this.labelGiaTien.Size = new System.Drawing.Size(79, 27);
-            this.labelGiaTien.StateCommon.ShortText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGiaTien.Size = new System.Drawing.Size(84, 27);
+            this.labelGiaTien.StateCommon.ShortText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelGiaTien.TabIndex = 2;
             this.labelGiaTien.Values.Text = "Giá tiền";
             // 
@@ -95,8 +96,8 @@
             this.labelTenMon.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
             this.labelTenMon.Location = new System.Drawing.Point(52, 79);
             this.labelTenMon.Name = "labelTenMon";
-            this.labelTenMon.Size = new System.Drawing.Size(87, 27);
-            this.labelTenMon.StateCommon.ShortText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTenMon.Size = new System.Drawing.Size(92, 27);
+            this.labelTenMon.StateCommon.ShortText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTenMon.TabIndex = 1;
             this.labelTenMon.Values.Text = "Tên món";
             // 
@@ -105,8 +106,8 @@
             this.labelMaMon.LabelStyle = Krypton.Toolkit.LabelStyle.BoldControl;
             this.labelMaMon.Location = new System.Drawing.Point(52, 36);
             this.labelMaMon.Name = "labelMaMon";
-            this.labelMaMon.Size = new System.Drawing.Size(82, 27);
-            this.labelMaMon.StateCommon.ShortText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMaMon.Size = new System.Drawing.Size(87, 27);
+            this.labelMaMon.StateCommon.ShortText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMaMon.TabIndex = 0;
             this.labelMaMon.Values.Text = "Mã món";
             // 
@@ -114,11 +115,11 @@
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.TenMon});
-            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(3, 80);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(480, 231);
+            this.listView1.Size = new System.Drawing.Size(480, 297);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
@@ -130,18 +131,20 @@
             // 
             // btnThemMon
             // 
-            this.btnThemMon.Location = new System.Drawing.Point(69, 350);
+            this.btnThemMon.Location = new System.Drawing.Point(24, 428);
             this.btnThemMon.Name = "btnThemMon";
-            this.btnThemMon.Size = new System.Drawing.Size(93, 34);
+            this.btnThemMon.Size = new System.Drawing.Size(141, 34);
+            this.btnThemMon.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThemMon.TabIndex = 3;
             this.btnThemMon.Values.Text = "Thêm món";
             this.btnThemMon.Click += new System.EventHandler(this.btnThemMon_Click);
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(310, 350);
+            this.btnSua.Location = new System.Drawing.Point(194, 428);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(98, 34);
+            this.btnSua.Size = new System.Drawing.Size(143, 34);
+            this.btnSua.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSua.TabIndex = 4;
             this.btnSua.Values.Text = "Chỉnh sửa";
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
@@ -155,13 +158,27 @@
             // 
             this.groupBoxThongTin.Panel.Controls.Add(this.panelDetails);
             this.groupBoxThongTin.Size = new System.Drawing.Size(633, 613);
+            this.groupBoxThongTin.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxThongTin.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.groupBoxThongTin.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.groupBoxThongTin.TabIndex = 5;
             this.groupBoxThongTin.Values.Heading = "Thông tin sản phẩm";
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.Location = new System.Drawing.Point(366, 428);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(117, 34);
+            this.btnXoa.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.TabIndex = 6;
+            this.btnXoa.Values.Text = "Xóa";
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // ucThucDon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnXoa);
             this.Controls.Add(this.groupBoxThongTin);
             this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnThemMon);
@@ -192,5 +209,6 @@
         private Krypton.Toolkit.KryptonButton btnSua;
         private Krypton.Toolkit.KryptonGroupBox groupBoxThongTin;
         private Krypton.Toolkit.KryptonLabel kryptonLabel4;
+        private Krypton.Toolkit.KryptonButton btnXoa;
     }
 }

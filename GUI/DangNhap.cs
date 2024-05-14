@@ -7,7 +7,7 @@ namespace GUI
 {
     public partial class DangNhap : Form
 
-    {   
+    {
         public static string TenDangNhap1;
         TaiKhoan taikhoan = new TaiKhoan();
         TaiKhoanBLL taikhoanBLL = new TaiKhoanBLL();
@@ -27,6 +27,8 @@ namespace GUI
             TenDangNhap1 = txtTenDangNhap.Text;
             taikhoan.MatKhau = txtMatKhau.Text;
             string info = taikhoanBLL.checkLogic(taikhoan);
+            
+
             switch (info)
             {
                 case "required_tdn":
@@ -38,7 +40,7 @@ namespace GUI
                     return;
 
                 case "wrong_info":
-                    MessageBox.Show("Vui lòng kiểm tra lại trí nhớ của bạn.");
+                    MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu.");
                     return;
             }
             MessageBox.Show("Đăng nhập thành công");
@@ -65,7 +67,7 @@ namespace GUI
         }
         public string GetTenDangNhap()
         {
-            return  TenDangNhap1;
+            return TenDangNhap1;
         }
 
         private void txtMatKhau_KeyPress(object sender, KeyPressEventArgs e)
@@ -75,6 +77,21 @@ namespace GUI
                 // Gọi phương thức xử lý đăng nhập
                 buttonDangNhap_Click(sender, e);
             }
+        }
+
+        private void txtTenDangNhap_Click(object sender, EventArgs e)
+        {
+            txtTenDangNhap.Text = "";
+            txtMatKhau.Text = "";
+        }
+
+        private void linkLabel1_Click(object sender, EventArgs e)
+        {
+            // mở form đăng kí
+            DangKy dangKy = new DangKy();
+            dangKy.ShowDialog();
+
+
         }
     }
 }

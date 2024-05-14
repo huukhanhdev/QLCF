@@ -55,7 +55,7 @@
             // 
             // kryptonButton2
             // 
-            this.kryptonButton2.Location = new System.Drawing.Point(603, 27);
+            this.kryptonButton2.Location = new System.Drawing.Point(806, 27);
             this.kryptonButton2.Name = "kryptonButton2";
             this.kryptonButton2.Size = new System.Drawing.Size(172, 45);
             this.kryptonButton2.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             // btnQLNV
             // 
-            this.btnQLNV.Location = new System.Drawing.Point(108, 27);
+            this.btnQLNV.Location = new System.Drawing.Point(255, 27);
             this.btnQLNV.Name = "btnQLNV";
             this.btnQLNV.Size = new System.Drawing.Size(172, 45);
             this.btnQLNV.TabIndex = 0;

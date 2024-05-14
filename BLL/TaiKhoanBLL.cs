@@ -28,7 +28,7 @@ namespace BLL
         {
             return TaiKhoanAccess.GetFullNameFromMaDinhDanh(maDinhDanh);
         }
-        
+
         public bool CheckMatKhau(TaiKhoan taiKhoan)
         {
             return TaiKhoanAccess.CheckMatKhau(taiKhoan);

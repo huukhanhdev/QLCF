@@ -43,7 +43,7 @@ namespace GUI
             EnableTextBoxes(true);
             txtTenNV.Focus(); // Focus vào ô textbox họ tên
         }
-        
+
         private void EnableTextBoxes(bool enable)
         {
             // Vô hiệu hóa/hủy vô hiệu hóa các ô textbox tùy thuộc vào biến enable
@@ -55,51 +55,51 @@ namespace GUI
             txtDiaChi.Enabled = enable;
         }
 
-        
-            private void btnLuu_Click(object sender, EventArgs e)
+
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            if (isEditing)
             {
-                if (isEditing)
+                // Lấy thông tin từ các ô textbox
+                string maDinhDanh = txtMaDinhDanh.Text;
+                string tenNV = txtTenNV.Text;
+                string gioiTinh = txtGioiTinh.Text;
+                string sdt = txtSDT.Text;
+                DateTime ngaySinh = dtpNgaySinh.Value;
+                string chucVu = txtChucVu.Text;
+                string diaChi = txtDiaChi.Text;
+
+                // Tạo đối tượng NhanVien để lưu thông tin mới
+                NhanVien nhanVien = new NhanVien
                 {
-                    // Lấy thông tin từ các ô textbox
-                    string maDinhDanh = txtMaDinhDanh.Text;
-                    string tenNV = txtTenNV.Text;
-                    string gioiTinh = txtGioiTinh.Text;
-                    string sdt = txtSDT.Text;
-                    DateTime ngaySinh = dtpNgaySinh.Value;
-                    string chucVu = txtChucVu.Text;
-                    string diaChi = txtDiaChi.Text;
+                    MaDinhDanh = maDinhDanh,
+                    TenNV = tenNV,
+                    GioiTinh = gioiTinh,
+                    SDT = sdt,
+                    NgaySinh = ngaySinh,
+                    ChucVu = chucVu,
+                    DiaChi = diaChi
+                };
 
-                    // Tạo đối tượng NhanVien để lưu thông tin mới
-                    NhanVien nhanVien = new NhanVien
-                    {
-                        MaDinhDanh = maDinhDanh,
-                        TenNV = tenNV,
-                        GioiTinh = gioiTinh,
-                        SDT = sdt,
-                        NgaySinh = ngaySinh,
-                        ChucVu = chucVu,
-                        DiaChi = diaChi
-                    };
+                // Gọi phương thức BLL hoặc DAL để cập nhật thông tin vào cơ sở dữ liệu
+                NhanVienBLL nhanVienBLL = new NhanVienBLL();
+                bool result = nhanVienBLL.CapNhatThongTinNhanVien(nhanVien);
 
-                    // Gọi phương thức BLL hoặc DAL để cập nhật thông tin vào cơ sở dữ liệu
-                    NhanVienBLL nhanVienBLL = new NhanVienBLL();
-                    bool result = nhanVienBLL.CapNhatThongTinNhanVien(nhanVien);
-
-                    if (result)
-                    {
-                        // Hiển thị thông báo thành công
-                        MessageBox.Show("Cập nhật thông tin thành công.");
-                        // Vô hiệu hóa các ô textbox sau khi lưu thành công
-                        EnableTextBoxes(false);
-                        isEditing = false;
-                    }
-                    else
-                    {
-                        // Hiển thị thông báo lỗi nếu cập nhật không thành công
-                        MessageBox.Show("Cập nhật thông tin không thành công. Vui lòng thử lại.");
-                    }
+                if (result)
+                {
+                    // Hiển thị thông báo thành công
+                    MessageBox.Show("Cập nhật thông tin thành công.");
+                    // Vô hiệu hóa các ô textbox sau khi lưu thành công
+                    EnableTextBoxes(false);
+                    isEditing = false;
                 }
-            
+                else
+                {
+                    // Hiển thị thông báo lỗi nếu cập nhật không thành công
+                    MessageBox.Show("Cập nhật thông tin không thành công. Vui lòng thử lại.");
+                }
+            }
+
         }
     }
-    }
+}

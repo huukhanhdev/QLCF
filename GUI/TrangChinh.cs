@@ -14,6 +14,12 @@ namespace GUI
         public TrangChinh(string hoTen)
         {
             InitializeComponent();
+            //hiển thị ucTrangChinh khi mở form
+            panel1.Controls.Clear(); // Xóa các control cũ trên Panel1
+            ucTrangChinh ucTrangChu = new ucTrangChinh(); // Tạo UserControl ucTrangChu
+            panel1.Controls.Add(ucTrangChu); // Thêm UserControl vào Panel1
+            this.KeyPreview = true;
+
             //get ten dang nhap from DangNhap.cs
             DangNhap dangNhap = new DangNhap();
             this.tenDangNhap = dangNhap.GetTenDangNhap();
@@ -61,10 +67,10 @@ namespace GUI
                         break;
                     case "Đổi mật khẩu":
                         HienThiDoiMatKhau();
-                        
+
                         break;
                     case "Đăng xuất":
-                        DangXuat(); 
+                        DangXuat();
                         break;
 
                     default:
@@ -84,51 +90,52 @@ namespace GUI
         private void HienThiDoiMatKhau()
         {
             string matKhauCu = Microsoft.VisualBasic.Interaction.InputBox("Nhập mật khẩu cũ:", "Đổi mật khẩu", "");
-            if (string.IsNullOrEmpty(matKhauCu))
-            {
-                MessageBox.Show("Mật khẩu cũ không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
-            // Hiển thị MessageBox để nhập mật khẩu mới và xác nhận mật khẩu mới
-            string matKhauMoi = Microsoft.VisualBasic.Interaction.InputBox("Nhập mật khẩu mới:", "Đổi mật khẩu", "");
-            if (string.IsNullOrEmpty(matKhauMoi))
+            // Kiểm tra nếu người dùng nhấn OK nhưng mật khẩu cũ trống
+            if (!string.IsNullOrEmpty(matKhauCu))
             {
-                MessageBox.Show("Mật khẩu mới không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                // Hiển thị MessageBox để nhập mật khẩu mới và xác nhận mật khẩu mới
+                string matKhauMoi = Microsoft.VisualBasic.Interaction.InputBox("Nhập mật khẩu mới:", "Đổi mật khẩu", "");
+                if (string.IsNullOrEmpty(matKhauMoi))
+                {
+                    MessageBox.Show("Mật khẩu mới không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            string xacNhanMatKhauMoi = Microsoft.VisualBasic.Interaction.InputBox("Xác nhận mật khẩu mới:", "Đổi mật khẩu", "");
-            if (string.IsNullOrEmpty(xacNhanMatKhauMoi))
-            {
-                MessageBox.Show("Xác nhận mật khẩu mới không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                string xacNhanMatKhauMoi = Microsoft.VisualBasic.Interaction.InputBox("Xác nhận mật khẩu mới:", "Đổi mật khẩu", "");
+                if (string.IsNullOrEmpty(xacNhanMatKhauMoi))
+                {
+                    MessageBox.Show("Xác nhận mật khẩu mới không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            if (matKhauMoi != xacNhanMatKhauMoi)
-            {
-                MessageBox.Show("Mật khẩu mới và xác nhận mật khẩu mới không khớp nhau.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                if (matKhauMoi != xacNhanMatKhauMoi)
+                {
+                    MessageBox.Show("Mật khẩu mới và xác nhận mật khẩu mới không khớp nhau.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            // Kiểm tra mật khẩu cũ có đúng không và thực hiện đổi mật khẩu trong cơ sở dữ liệu
-            TaiKhoanBLL taiKhoanBLL = new TaiKhoanBLL();
-            bool result = taiKhoanBLL.CheckMatKhau(new DTO.TaiKhoan { TenDangNhap = tenDangNhap, MatKhau = matKhauCu });
-            //check ten dang nhap va mat khau cu
-            MessageBox.Show(tenDangNhap + " " + matKhauCu + " " + result.ToString());
-            if (result == true)
-            {
-                result = taiKhoanBLL.DoiMatKhau(tenDangNhap, matKhauMoi);
+                // Kiểm tra mật khẩu cũ có đúng không và thực hiện đổi mật khẩu trong cơ sở dữ liệu
+                TaiKhoanBLL taiKhoanBLL = new TaiKhoanBLL();
+                bool result = taiKhoanBLL.CheckMatKhau(new DTO.TaiKhoan { TenDangNhap = tenDangNhap, MatKhau = matKhauCu });
+                //check ten dang nhap va mat khau cu
+                MessageBox.Show(tenDangNhap + " " + matKhauCu + " " + result.ToString());
+                if (result == true)
+                {
+                    result = taiKhoanBLL.DoiMatKhau(tenDangNhap, matKhauMoi);
+                }
+                if (result)
+                {
+                    MessageBox.Show("Đổi mật khẩu thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Mật khẩu cũ không đúng. Vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            if (result)
-            {
-                MessageBox.Show("Đổi mật khẩu thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("Mật khẩu cũ không đúng. Vui lòng thử lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            // Không làm gì cả nếu người dùng nhấn dấu X hoặc Cancel
         }
+
         private void DangXuat()
         {
             // Hiển thị hộp thoại xác nhận hoặc đóng form và hiển thị form đăng nhập
@@ -159,6 +166,59 @@ namespace GUI
             ucQuanLy ucQuanLy = new ucQuanLy(); // Tạo UserControl ucQuanLy
             ucQuanLy.Dock = DockStyle.Fill; // Đặt kiểu Fill để UserControl lấp đầy Panel1
             panel1.Controls.Add(ucQuanLy); // Thêm UserControl vào Panel1
+        }
+        private void btnBanHang_CLick(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear(); // Xóa các control cũ trên Panel1
+            ucBanHang ucBanHang = new ucBanHang(); // Tạo UserControl ucBanHang
+            ucBanHang.Dock = DockStyle.Fill; // Đặt kiểu Fill để UserControl lấp đầy Panel1
+            panel1.Controls.Add(ucBanHang); // Thêm UserControl vào Panel1
+        }
+        // khi nhấn f5, kiểm tra xem đang ở form nào thì nhấn lại vào btn tương ứng
+        private void btnThongKe_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear(); // Xóa các control cũ trên Panel1
+            ucThongKe ucThongKe = new ucThongKe(); // Tạo UserControl ucThongKe
+            ucThongKe.Dock = DockStyle.Fill; // Đặt kiểu Fill để UserControl lấp đầy Panel1
+            panel1.Controls.Add(ucThongKe); // Thêm UserControl vào Panel1
+        }
+
+        private void TrangChinh_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                if (panel1.Controls.Count == 0)
+                {
+                    btnMenu_Click(sender, e);
+                }
+                else
+                {
+                    if (panel1.Controls[0] is ucThucDon)
+                    {
+                        btnMenu_Click(sender, e);
+                    }
+                    else if (panel1.Controls[0] is ucQuanLy)
+                    {
+                        btnQuanLy_Click(sender, e);
+                    }
+                    else if (panel1.Controls[0] is ucBanHang)
+                    {
+                        btnBanHang_CLick(sender, e);
+                    }
+                }
+            }
+
+        }
+
+        private void btnTrangChu_Click(object sender, EventArgs e)
+        {
+            // mở uc trangchinh
+            panel1.Controls.Clear(); // Xóa các control cũ trên Panel1
+            ucTrangChinh ucTrangChu = new ucTrangChinh(); // Tạo UserControl ucTrangChu
+            panel1.Controls.Add(ucTrangChu); // Thêm UserControl vào Panel1
+
+
+
         }
     }
 }
